@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>길동이의 코딩 일기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* 다크모드 스타일 */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .header {
+            background-color: #2d2d2d;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .title {
+            color: #e0e0e0;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .nav-menu li a {
+            color: #e0e0e0;
+        }
+
+        .nav-menu li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        body.dark-mode .nav-menu li a:hover {
+            background-color: #404040;
+        }
+
+        .nav-menu li a.active {
+            background-color: #4a90e2;
+            color: #fff;
+        }
+
+        body.dark-mode .nav-menu li a.active {
+            background-color: #5ba0f2;
+        }
+
+        .dark-mode-toggle {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #357abd;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background-color: #5ba0f2;
+        }
+
+        body.dark-mode .dark-mode-toggle:hover {
+            background-color: #4a90e2;
+        }
+
+        .font-size-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .font-size-btn {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            min-width: 40px;
+        }
+
+        .font-size-btn:hover {
+            background-color: #357abd;
+        }
+
+        body.dark-mode .font-size-btn {
+            background-color: #5ba0f2;
+        }
+
+        body.dark-mode .font-size-btn:hover {
+            background-color: #4a90e2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            display: none;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        body.dark-mode .section {
+            background-color: #2d2d2d;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .section-title {
+            color: #e0e0e0;
+        }
+
+        .diary-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .form-group label {
+            color: #e0e0e0;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background-color: #1a1a1a;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        .submit-btn {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .submit-btn:hover {
+            background-color: #357abd;
+        }
+
+        body.dark-mode .submit-btn {
+            background-color: #5ba0f2;
+        }
+
+        body.dark-mode .submit-btn:hover {
+            background-color: #4a90e2;
+        }
+
+        .diary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .diary-item {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .diary-item:hover {
+            transform: translateX(5px);
+            background-color: #f0f0f0;
+        }
+
+        body.dark-mode .diary-item {
+            background-color: #1a1a1a;
+            border-left-color: #5ba0f2;
+        }
+
+        body.dark-mode .diary-item:hover {
+            background-color: #252525;
+        }
+
+        .diary-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .diary-item-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .diary-item-title {
+            color: #e0e0e0;
+        }
+
+        .diary-item-date {
+            font-size: 0.9rem;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .diary-item-date {
+            color: #999;
+        }
+
+        .diary-item-preview {
+            color: #666;
+            font-size: 0.95rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .diary-item-preview {
+            color: #999;
+        }
+
+        .diary-detail {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .diary-detail.active {
+            display: block;
+        }
+
+        body.dark-mode .diary-detail {
+            background-color: #1a1a1a;
+        }
+
+        .diary-detail-content {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .diary-detail-content {
+            color: #e0e0e0;
+        }
+
+        .close-btn {
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #ee5a5a;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        body.dark-mode .empty-message {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="title">길동이의 코딩 일기</h1>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active" data-section="home">홈</a></li>
+                    <li><a href="#" class="nav-link" data-section="write">일기쓰기</a></li>
+                    <li><a href="#" class="nav-link" data-section="list">목록</a></li>
+                </ul>
+                <div class="font-size-controls">
+                    <button class="font-size-btn" id="fontDecrease" title="글자 크기 줄이기">A-</button>
+                    <button class="font-size-btn" id="fontIncrease" title="글자 크기 늘리기">A+</button>
+                </div>
+                <button class="dark-mode-toggle" id="darkModeToggle">🌙 다크모드</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 홈 섹션 -->
+        <section class="section active" id="home">
+            <h2 class="section-title">홈</h2>
+            <p>길동이의 코딩 일기에 오신 것을 환영합니다!</p>
+            <p style="margin-top: 15px;">일기를 작성하고 저장된 일기를 확인할 수 있습니다.</p>
+        </section>
+
+        <!-- 일기쓰기 섹션 -->
+        <section class="section" id="write">
+            <h2 class="section-title">일기쓰기</h2>
+            <form class="diary-form" id="diaryForm">
+                <div class="form-group">
+                    <label for="diaryTitle">제목</label>
+                    <input type="text" id="diaryTitle" name="title" required placeholder="일기 제목을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="diaryContent">내용</label>
+                    <textarea id="diaryContent" name="content" required placeholder="오늘의 일기를 작성해보세요..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">저장하기</button>
+            </form>
+        </section>
+
+        <!-- 목록 섹션 -->
+        <section class="section" id="list">
+            <h2 class="section-title">일기 목록</h2>
+            <div class="diary-list" id="diaryList">
+                <!-- 일기 목록이 여기에 동적으로 추가됩니다 -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 다크모드 기능
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // 저장된 다크모드 설정 불러오기
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (savedDarkMode) {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️ 라이트모드';
+        }
+
+        // 다크모드 토글
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            darkModeToggle.textContent = isDarkMode ? '☀️ 라이트모드' : '🌙 다크모드';
+        });
+
+        // 폰트 크기 조절 기능
+        const fontIncreaseBtn = document.getElementById('fontIncrease');
+        const fontDecreaseBtn = document.getElementById('fontDecrease');
+        
+        // 기본 폰트 크기 (100% = 1rem 기준)
+        let currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 100;
+        const minFontSize = 80; // 최소 80%
+        const maxFontSize = 150; // 최대 150%
+        const fontSizeStep = 10; // 한 번에 10%씩 조절
+
+        // 저장된 폰트 크기 적용
+        body.style.fontSize = currentFontSize + '%';
+
+        // 폰트 크기 증가
+        fontIncreaseBtn.addEventListener('click', () => {
+            if (currentFontSize < maxFontSize) {
+                currentFontSize = Math.min(currentFontSize + fontSizeStep, maxFontSize);
+                body.style.fontSize = currentFontSize + '%';
+                localStorage.setItem('fontSize', currentFontSize);
+            }
+        });
+
+        // 폰트 크기 감소
+        fontDecreaseBtn.addEventListener('click', () => {
+            if (currentFontSize > minFontSize) {
+                currentFontSize = Math.max(currentFontSize - fontSizeStep, minFontSize);
+                body.style.fontSize = currentFontSize + '%';
+                localStorage.setItem('fontSize', currentFontSize);
+            }
+        });
+
+        // 네비게이션 메뉴 기능
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+
+                // 모든 링크와 섹션에서 active 클래스 제거
+                navLinks.forEach(l => l.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+
+                // 클릭한 링크와 해당 섹션에 active 클래스 추가
+                link.classList.add('active');
+                document.getElementById(targetSection).classList.add('active');
+
+                // 목록 섹션으로 이동할 때 일기 목록 새로고침
+                if (targetSection === 'list') {
+                    loadDiaryList();
+                }
+            });
+        });
+
+        // 일기 저장 기능 (localStorage)
+        const diaryForm = document.getElementById('diaryForm');
+        const diaryList = document.getElementById('diaryList');
+
+        // 일기 저장
+        diaryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('diaryTitle').value;
+            const content = document.getElementById('diaryContent').value;
+            const date = new Date().toLocaleString('ko-KR');
+
+            // 새 일기 객체 생성
+            const diary = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                date: date
+            };
+
+            // localStorage에서 기존 일기 목록 가져오기
+            let diaries = JSON.parse(localStorage.getItem('diaries') || '[]');
+            
+            // 새 일기 추가
+            diaries.unshift(diary); // 최신 일기가 위에 오도록
+            
+            // localStorage에 저장
+            localStorage.setItem('diaries', JSON.stringify(diaries));
+
+            // 폼 초기화
+            diaryForm.reset();
+
+            // 성공 메시지
+            alert('일기가 저장되었습니다!');
+
+            // 목록 섹션으로 이동
+            navLinks.forEach(l => l.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+            document.querySelector('[data-section="list"]').classList.add('active');
+            document.getElementById('list').classList.add('active');
+            
+            // 목록 새로고침
+            loadDiaryList();
+        });
+
+        // 일기 목록 불러오기
+        function loadDiaryList() {
+            const diaries = JSON.parse(localStorage.getItem('diaries') || '[]');
+            
+            if (diaries.length === 0) {
+                diaryList.innerHTML = '<div class="empty-message">저장된 일기가 없습니다.</div>';
+                return;
+            }
+
+            diaryList.innerHTML = '';
+            
+            diaries.forEach(diary => {
+                const diaryItem = document.createElement('div');
+                diaryItem.className = 'diary-item';
+                diaryItem.innerHTML = `
+                    <div class="diary-item-header">
+                        <div class="diary-item-title">${diary.title}</div>
+                        <div class="diary-item-date">${diary.date}</div>
+                    </div>
+                    <div class="diary-item-preview">${diary.content.substring(0, 100)}${diary.content.length > 100 ? '...' : ''}</div>
+                    <div class="diary-detail" id="detail-${diary.id}">
+                        <div class="diary-detail-content">${diary.content}</div>
+                        <button class="close-btn" onclick="closeDetail(${diary.id})">닫기</button>
+                    </div>
+                `;
+                
+                // 일기 항목 클릭 시 상세 내용 보기
+                diaryItem.addEventListener('click', (e) => {
+                    // 닫기 버튼 클릭이 아닐 때만
+                    if (!e.target.classList.contains('close-btn')) {
+                        const detail = diaryItem.querySelector('.diary-detail');
+                        const allDetails = document.querySelectorAll('.diary-detail');
+                        
+                        // 다른 모든 상세 내용 닫기
+                        allDetails.forEach(d => {
+                            if (d !== detail) {
+                                d.classList.remove('active');
+                            }
+                        });
+                        
+                        // 현재 상세 내용 토글
+                        detail.classList.toggle('active');
+                    }
+                });
+                
+                diaryList.appendChild(diaryItem);
+            });
+        }
+
+        // 상세 내용 닫기 함수
+        function closeDetail(id) {
+            const detail = document.getElementById(`detail-${id}`);
+            if (detail) {
+                detail.classList.remove('active');
+            }
+        }
+
+        // 페이지 로드 시 일기 목록 불러오기
+        loadDiaryList();
+    </script>
+</body>
+</html>
